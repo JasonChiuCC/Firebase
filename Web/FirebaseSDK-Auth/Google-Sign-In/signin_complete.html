@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Firebase Authentication SDK 電子郵件/密碼登入</title>
+    <script src="https://www.gstatic.com/firebasejs/3.2.0/firebase.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script>
+        // 初始化 Firebase
+        var config = {
+            apiKey: "你的 API Key",
+            authDomain: "myfirebaseproject-57619.firebaseapp.com",
+            databaseURL: "https://myfirebaseproject-57619.firebaseio.com",
+            storageBucket: "myfirebaseproject-57619.appspot.com",
+        };
+        firebase.initializeApp(config);
+
+        /* Handle 建立使用者方法 */
+        var create_error_func = function(error) {
+                  var errorCode     = error.code;
+                  var errorMessage  = error.message;
+                  alert("建立失敗:"+errorMessage);  
+        }
+        var create_success_func = function(error) {
+                  alert("建立成功");  
+        }        
+        
+        
+        /* Handle 使用者登入方法 */
+        var login_error_func = function(error) {
+                  var errorCode     = error.code;
+                  var errorMessage  = error.message;
+                  alert("登入失敗:"+errorMessage);  
+        }
+        var login_success_func = function(error) {
+                  alert("登入成功");  
+        }          
+        
+        $(document).ready(function(){
+            /* 建立使用者 */
+            $("#create_user").click(function(){
+                var email       = $('#create_email').val();
+                var password    = $('#create_password').val(); 
+                firebase.auth().createUserWithEmailAndPassword(email,password).then(create_success_func).catch(create_error_func);
+            });
+            
+            /* 登入使用者 */
+            $("#login_user").click(function(){
+                var email       = $('#login_email').val();
+                var password    = $('#login_password').val(); 
+                firebase.auth().signInWithEmailAndPassword(email, password).then(login_success_func).catch(login_error_func);
+            });            
+        });        
+    </script>
+  </head>
+  <body>
+    <h3>建立使用者帳號</h3>
+    <input type="text" id="create_email"     placeholder="Email"/>
+    <input type="text" id="create_password"  placeholder="密碼"/>
+    <button id="create_user">建立</button>
+  
+    <h3>登入使用者帳號</h3>
+    <input type="text" id="login_email"     placeholder="Email"/>
+    <input type="text" id="login_password"  placeholder="密碼"/>
+    <button id="login_user">登入</button>    
+    
+  </body>
+</html>
