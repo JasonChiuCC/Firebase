@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Firebase Authentication SDK 電子郵件/密碼登入</title>
+    <script src="https://www.gstatic.com/firebasejs/3.2.0/firebase.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script>
+        // 初始化 Firebase
+        var config = {
+            apiKey: "你的 API Key",
+            authDomain: "myfirebaseproject-57619.firebaseapp.com",
+            databaseURL: "https://myfirebaseproject-57619.firebaseio.com",
+            storageBucket: "myfirebaseproject-57619.appspot.com",
+        };
+        firebase.initializeApp(config);
+
+        
+
+        
+        $(document).ready(function(){
+          $("button").click(function(){
+                /* Firebase 登入方法*/
+                firebase.auth().signInWithEmailAndPassword("abc@gmail.com", "112233").catch(function(error) {
+                  var errorCode     = error.code;
+                  var errorMessage  = error.message;
+                  alert("登入失敗:"+errorCode+"\n訊息:"+errorMessage);
+                  
+                });              
+          });
+        });        
+    </script>
+  </head>
+  <body>
+    <h1>Firebase Authentication SDK 電子郵件/密碼登入</h1>
+    <button>按下登入</button>
+  </body>
+</html>
