@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Firebase Realtime Database 取資料</title>
+    <script src="https://www.gstatic.com/firebasejs/3.2.0/firebase.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+        // 初始化 Firebase
+        var config = {
+            apiKey: "",
+            authDomain: "myfirebaseproject-57619.firebaseapp.com",
+            databaseURL: "https://myfirebaseproject-57619.firebaseio.com",
+            storageBucket: "myfirebaseproject-57619.appspot.com",
+        };
+        firebase.initializeApp(config);
+        // 建立 DB
+        var database = firebase.database();  
+        
+        
+ 
+
+        $(document).ready(function(){
+            function display_data(data_val){
+                $('#date').text(data_val);   
+            }
+            
+           firebase.database().ref('users/').on('value', function(snapshot) {
+              console.log(snapshot.val())
+              display_data(snapshot.val());
+            });             
+        }); 
+    </script>
+  </head>
+  <body>
+    <h1>Firebase Realtime Database 取資料</h1>
+    <label  id="date"></label><br>
+  </body>
+</html>
